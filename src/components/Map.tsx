@@ -1,4 +1,3 @@
-/// app.js
 import DeckGL from '@deck.gl/react/typed'
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import StaticMap from 'react-map-gl'
@@ -21,35 +20,30 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
       setYkrId(f.object.properties.YKR_ID)
     }
   }
+  const COLORS = {
+    15: [255, 255, 255],
+    30: [150, 150, 150],
+    45: [75, 75, 75],
+    60: [40, 40, 40],
+    75: [20, 20, 20],
+  } as any
 
+  const getFillColor = (feature: any) => {
+    return COLORS[feature.properties.t]
+  }
   const matrixLayer = new GeoJsonLayer({
     id: 'geojson-layer',
     data: matrixData,
     pickable: false,
     stroked: false,
-    getFillColor: (f: any) => {
-      // console.log(f)
-      // console.log(f.properties.t)
-      if (f.properties.t == 15) {
-        return [255, 255, 255]
-      }
-      else if (f.properties.t == 30) {
-        return [200, 200, 200]
-      }
-      else if (f.properties.t == 45) {
-        return [150, 150, 150]
-      }
-      else if (f.properties.t == 60) {
-        return [100, 100, 100]
-      }
-      return [50, 50, 50]
-    },
+    getFillColor: f => getFillColor(f)
   })
 
   const baseGridLayer = new GeoJsonLayer({
     id: 'base-grid',
     data: baseGrid,
     pickable: true,
+    // visible: false,
     onHover: f => handleHover(f)
   })
 

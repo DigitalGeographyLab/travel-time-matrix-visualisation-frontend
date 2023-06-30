@@ -5,7 +5,7 @@ import StaticMap from 'react-map-gl'
 import { BASEMAP } from '@deck.gl/carto/typed'
 
 // DeckGL react component
-const Map = ({ matrixData, baseGrid }: any) => {
+const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
 
   // Viewport settings
   const INITIAL_VIEW_STATE = {
@@ -16,9 +16,16 @@ const Map = ({ matrixData, baseGrid }: any) => {
     bearing: 0
   }
 
+  const handleHover = (f: any) => {
+    if (f.object) {
+      setYkrId(f.object.properties.YKR_ID)
+    }
+  }
+
   const matrixLayer = new GeoJsonLayer({
     id: 'geojson-layer',
     data: matrixData,
+    pickable: false,
     stroked: false,
     getFillColor: (f: any) => {
       // console.log(f)
@@ -42,6 +49,8 @@ const Map = ({ matrixData, baseGrid }: any) => {
   const baseGridLayer = new GeoJsonLayer({
     id: 'base-grid',
     data: baseGrid,
+    pickable: true,
+    onHover: f => handleHover(f)
   })
 
   const layers = [baseGridLayer, matrixLayer]

@@ -43,7 +43,11 @@ const App = () => {
   return (
     <>
       <Button onClick={testFetch} text={'test'}/>
-      <Map matrixData={matrixData} baseGrid={baseGrid}/>
+      <Map
+        matrixData={matrixData}
+        baseGrid={baseGrid}
+        setYkrId={setYkrId}
+      />
     </>
   )
 }

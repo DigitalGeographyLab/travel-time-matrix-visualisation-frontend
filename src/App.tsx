@@ -34,8 +34,8 @@ const App = () => {
 
 
   const testFetch = () => {
-    setTravelMode('bike')
-    setVariation('s_t')
+    setTravelMode('car')
+    setVariation('r_t')
     console.log('name:', name)
   }
 

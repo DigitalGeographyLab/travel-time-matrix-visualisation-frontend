@@ -21,11 +21,11 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     }
   }
   const COLORS = {
-    15: [255, 255, 255],
-    30: [150, 150, 150],
-    45: [75, 75, 75],
-    60: [40, 40, 40],
-    75: [20, 20, 20],
+    15: [253, 231, 37, 255],
+    30: [53, 183, 121, 255],
+    45: [38, 130, 142, 255],
+    60: [62, 74, 137, 255],
+    75: [68, 1, 84, 255],
   } as any
 
   const getFillColor = (feature: any) => {
@@ -43,6 +43,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     id: 'base-grid',
     data: baseGrid,
     pickable: true,
+    getFillColor: [0, 0, 0, 30],
     // visible: false,
     onHover: f => handleHover(f)
   })
@@ -55,7 +56,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
         layers={layers}>
-          <StaticMap mapStyle={BASEMAP.DARK_MATTER} />
+          <StaticMap mapStyle={BASEMAP.POSITRON} />
       </DeckGL>
     </div>
   )

@@ -16,9 +16,13 @@ const TopBar = ({
 
   return (
     <div>
-      <Button onClick={makeTravelModeHandler('bike', 's_t')} text={'bike'}/>
-      <Button onClick={makeTravelModeHandler('pt', 'r_t')} text={'public transport'}/>
-      <Button onClick={makeTravelModeHandler('car', 'r_t')} text={'car'}/>
+      <Button onClick={makeTravelModeHandler('walk', 't')} text={'walk'}/>
+      <Button onClick={makeTravelModeHandler('bike', 's_t')} text={'bike, slow'}/>
+      <Button onClick={makeTravelModeHandler('bike', 'f_t')} text={'bike, fast'}/>
+      <Button onClick={makeTravelModeHandler('pt', 'r_t')} text={'public transport, rush'}/>
+      <Button onClick={makeTravelModeHandler('pt', 'm_t')} text={'public transport, midday'}/>
+      <Button onClick={makeTravelModeHandler('car', 'r_t')} text={'car, rush'}/>
+      <Button onClick={makeTravelModeHandler('car', 'm_t')} text={'car, midday'}/>
     </div>
   )
 

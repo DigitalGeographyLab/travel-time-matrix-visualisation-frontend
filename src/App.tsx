@@ -3,7 +3,7 @@ import formatName from './utils/formatName'
 import matrixService from './servives/matrices'
 
 import Map from './components/Map'
-import Button from './components/Button'
+import TopBar from './components/TopBar'
 
 const App = () => {
 
@@ -12,6 +12,7 @@ const App = () => {
   const [variation, setVariation] = useState('r_t')
   const [ykrId, setYkrId] = useState('5827486')
   const [matrixData, setMatrixData] = useState(null)
+  const [baseGrid, setBaseGrid] = useState(null)
 
   let name = formatName(year, travelMode, variation, ykrId)
   
@@ -19,32 +20,21 @@ const App = () => {
     matrixService.getMatrix(name).then(matrixData =>
       setMatrixData(matrixData)
     )
-    console.log('effect hook matrix')
   }, [year, travelMode, variation, ykrId])
 
-
-  const [baseGrid, setBaseGrid] = useState(null)
   useEffect(() => {
     matrixService.getBaseGrid().then(baseGrid =>
       setBaseGrid(baseGrid)
     )
-    console.log('effect hook basegrid')
   }, [])
-
-
-
-  const makeHandler = (mode: string, variation: string) => {
-    const handleTravelModeChange = () => {
-      setTravelMode(mode)
-      setVariation(variation)
-    }
-    console.log('name:', name)
-    return handleTravelModeChange
-  }
 
   return (
     <>
-      <Button onClick={makeHandler("bike", "s_t")} text={'test'}/>
+      <TopBar
+        setTravelMode={setTravelMode}
+        setVariation={setVariation}
+        setYear={setYear}
+      />
       <Map
         matrixData={matrixData}
         baseGrid={baseGrid}

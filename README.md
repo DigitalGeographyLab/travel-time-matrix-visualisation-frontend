@@ -1,5 +1,5 @@
 # TTM-frontend
-This is an interactive map UI for displaying the travel time matrix.
+This is an interactive map UI for displaying travel time matrices.
 
 
 ## Technology
@@ -30,3 +30,4 @@ Serve them with the [backend](https://github.com/DigitalGeographyLab/travel-time
 - Fetch catchments by http requests
 - Select catchments, trigger fetching and update the map view based on mouse location (hover)
 - visualize catchments
+- Choose from all travel modes

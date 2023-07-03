@@ -33,15 +33,18 @@ const App = () => {
 
 
 
-  const testFetch = () => {
-    setTravelMode('car')
-    setVariation('r_t')
+  const makeHandler = (mode: string, variation: string) => {
+    const handleTravelModeChange = () => {
+      setTravelMode(mode)
+      setVariation(variation)
+    }
     console.log('name:', name)
+    return handleTravelModeChange
   }
 
   return (
     <>
-      <Button onClick={testFetch} text={'test'}/>
+      <Button onClick={makeHandler("bike", "s_t")} text={'test'}/>
       <Map
         matrixData={matrixData}
         baseGrid={baseGrid}

@@ -8,8 +8,8 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
 
   // Viewport settings
   const INITIAL_VIEW_STATE = {
-    longitude: 24.93,
-    latitude: 60.29,
+    longitude: 24.88,
+    latitude: 60.25,
     zoom: 10,
     pitch: 0,
     bearing: 0
@@ -21,11 +21,11 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     }
   }
   const COLORS = {
-    15: [253, 231, 37, 255],
-    30: [53, 183, 121, 255],
-    45: [38, 130, 142, 255],
-    60: [62, 74, 137, 255],
-    75: [68, 1, 84, 255],
+    15: [253, 231, 37, 160],
+    30: [53, 183, 121, 160],
+    45: [38, 130, 142, 160],
+    60: [62, 74, 137, 160],
+    75: [68, 1, 84, 160],
   } as any
 
   const getFillColor = (feature: any) => {
@@ -43,7 +43,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     id: 'base-grid',
     data: baseGrid,
     pickable: true,
-    getFillColor: [0, 0, 0, 30],
+    getFillColor: [0, 0, 0, 15],
     // visible: false,
     onHover: f => handleHover(f)
   })

@@ -54,7 +54,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     <div style={{ }}>
       <DeckGL
         initialViewState={INITIAL_VIEW_STATE}
-        controller={true}
+        controller={{doubleClickZoom: false}}
         layers={layers}>
           <StaticMap mapStyle={BASEMAP.POSITRON} />
       </DeckGL>

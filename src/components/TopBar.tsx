@@ -14,6 +14,13 @@ const TopBar = ({
     return handleTravelModeChange
   }
 
+  const makeYearHandler = (year: string) => {
+    const handleYearChange = () => {
+      setYear(year)
+    }
+    return handleYearChange
+  }
+
   return (
     <div>
       <Button onClick={makeTravelModeHandler('walk', 't')} text={'walk'}/>
@@ -23,6 +30,7 @@ const TopBar = ({
       <Button onClick={makeTravelModeHandler('pt', 'm_t')} text={'public transport, midday'}/>
       <Button onClick={makeTravelModeHandler('car', 'r_t')} text={'car, rush'}/>
       <Button onClick={makeTravelModeHandler('car', 'm_t')} text={'car, midday'}/>
+      <Button onClick={makeYearHandler('2018')} text={'2018'}/>
     </div>
   )
 

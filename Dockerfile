@@ -1,5 +1,4 @@
 FROM node:20.5.1-bookworm-slim AS build-stage
-ENV NODE_ENV production
 WORKDIR /usr/src/app
 COPY . .
 RUN npm ci

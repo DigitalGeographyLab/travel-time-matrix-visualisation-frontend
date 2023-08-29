@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'src/**'
-      - 'index.html/'
+      - 'index.html'
       - 'Dockerfile'
   workflow_dispatch:
 

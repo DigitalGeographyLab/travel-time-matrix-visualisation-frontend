@@ -45,7 +45,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     pickable: true,
     getFillColor: [0, 0, 0, 15],
     // visible: false,
-    onClick: f => handleHover(f)
+    onHover: f => handleHover(f)
   })
 
   const layers = [baseGridLayer, matrixLayer]

@@ -1,4 +1,4 @@
-FROM node:20.5.1-bookworm-slim
+FROM node:lts-bookworm-slim
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install

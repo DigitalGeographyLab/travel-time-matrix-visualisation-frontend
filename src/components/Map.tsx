@@ -1,4 +1,5 @@
 import DeckGL from '@deck.gl/react/typed'
+import GL from '@luma.gl/constants';
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import StaticMap from 'react-map-gl'
 import { BASEMAP } from '@deck.gl/carto/typed'
@@ -21,11 +22,11 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     }
   }
   const COLORS = {
-    15: [253, 231, 37, 160],
-    30: [53, 183, 121, 160],
-    45: [38, 130, 142, 160],
-    60: [62, 74, 137, 160],
-    75: [68, 1, 84, 160],
+    60: [ 0,68,27, 80],
+    45: [ 31,136,66, 80],
+    30: [ 92,188,151, 80],
+    15: [ 210,238,235, 80],
+    75: [ 68, 1, 84, 80],
   } as any
 
   const getFillColor = (feature: any) => {
@@ -43,7 +44,8 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     id: 'base-grid',
     data: baseGrid,
     pickable: true,
-    getFillColor: [0, 0, 0, 15],
+    stroked: false,
+    getFillColor: [0, 0, 0, 0],
     // visible: false,
     onHover: f => handleHover(f)
   })
@@ -53,10 +55,15 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
   return (
     <div style={{ }}>
       <DeckGL
+        // parameters={{
+        //   blend: true,
+        //   polygonOffsetFill: false,
+        //   depthTest: false,
+        // }}
         initialViewState={INITIAL_VIEW_STATE}
         controller={{doubleClickZoom: false}}
         layers={layers}>
-          <StaticMap mapStyle={BASEMAP.POSITRON} />
+        <StaticMap mapStyle={BASEMAP.POSITRON} />
       </DeckGL>
     </div>
   )

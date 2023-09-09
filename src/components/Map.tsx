@@ -1,11 +1,20 @@
+import { useState, useRef } from 'react'
 import DeckGL from '@deck.gl/react/typed'
-import GL from '@luma.gl/constants';
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import StaticMap from 'react-map-gl'
 import { BASEMAP } from '@deck.gl/carto/typed'
 
 // DeckGL react component
 const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
+
+  const [hoverMode, _setHoverMode] = useState(true)
+
+  // this updates properly in handlers
+  const hoverModeRef = useRef(hoverMode)
+  const setHoverMode = (mode: boolean) => {
+    hoverModeRef.current = mode
+    _setHoverMode(mode)
+  };
 
   // Viewport settings
   const INITIAL_VIEW_STATE = {
@@ -17,10 +26,17 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
   }
 
   const handleHover = (f: any) => {
+    if (f.object && hoverModeRef.current === true) {
+      setYkrId(f.object.properties.YKR_ID)
+    }
+  }
+  const handleClick = (f: any) => {
+    setHoverMode(!hoverMode)
     if (f.object) {
       setYkrId(f.object.properties.YKR_ID)
     }
   }
+
   const COLORS = {
     60: [ 0,68,27, 80],
     45: [ 31,136,66, 80],
@@ -47,7 +63,8 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     stroked: false,
     getFillColor: [0, 0, 0, 0],
     // visible: false,
-    onHover: f => handleHover(f)
+    onHover: f => handleHover(f),
+    onClick: f => handleClick(f)
   })
 
   const layers = [baseGridLayer, matrixLayer]

@@ -1,5 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
-import { GeoJsonLayer } from '@deck.gl/layers/typed'
+import { useState, useRef } from 'react'
 import Map, {Source, Layer, FillLayer} from 'react-map-gl/maplibre'
 
 // DeckGL react component

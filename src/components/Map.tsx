@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react'
 import DeckGL from '@deck.gl/react/typed'
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
-import StaticMap from 'react-map-gl'
+import Map, {Source, Layer, FillLayer} from 'react-map-gl/maplibre'
 import { BASEMAP } from '@deck.gl/carto/typed'
 
 // DeckGL react component
-const Map = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
+const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
 
@@ -71,22 +71,38 @@ const Map = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const layers = [baseGridLayer, matrixLayer]
 
+  const dataLayer: FillLayer = {
+    id: 'data',
+    source: 'data',
+    type: 'fill',
+    paint: {
+      'fill-color': [
+        'interpolate',
+        ["linear"],
+        ["get", "t"],
+        15,
+        ["to-color", "#FFFFFF"],
+        60,
+        ["to-color", "#000000"],
+
+      ],
+      'fill-opacity': 0.25
+    }
+  };
+
   return (
     <div style={{ }}>
-      <DeckGL
-        // parameters={{
-        //   blend: true,
-        //   polygonOffsetFill: false,
-        //   depthTest: false,
-        // }}
-        onClick={event => handleClick(event)}
+      <Map
         initialViewState={INITIAL_VIEW_STATE}
-        controller={{doubleClickZoom: false}}
-        layers={layers}>
-        <StaticMap mapStyle={BASEMAP.POSITRON} />
-      </DeckGL>
+        style={{position: 'absolute', width: '100%', height: '100%'}}
+        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+      >
+      <Source id="data" type="geojson" data={matrixData}>
+        <Layer {...dataLayer} />
+      </Source>
+      </Map>
     </div>
   )
 }
 
-export default Map
+export default MapComponent

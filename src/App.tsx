@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import formatName from './utils/formatName'
 import matrixService from './servives/matrices'
 
-import Map from './components/Map'
+import MapComponent from './components/Map'
 import TopBar from './components/TopBar'
 
 const App = () => {
@@ -35,7 +35,7 @@ const App = () => {
         setVariation={setVariation}
         setYear={setYear}
       />
-      <Map
+      <MapComponent
         matrixData={matrixData}
         setMatrixData={setMatrixData}
         baseGrid={baseGrid}

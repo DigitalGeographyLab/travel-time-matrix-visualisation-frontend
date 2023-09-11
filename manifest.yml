@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: ttm-server
-        image: ghcr.io/eemilhaa/travel-time-matrix-visualisation-frontend:main
+        image: ghcr.io/eemilhaa/travel-time-matrix-visualisation-frontend:maplibre-experiment
         imagePullPolicy: Always  # Change this when stable
         ports:
         - containerPort: 8080  # See Dockerfile

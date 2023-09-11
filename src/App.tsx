@@ -37,6 +37,7 @@ const App = () => {
       />
       <Map
         matrixData={matrixData}
+        setMatrixData={setMatrixData}
         baseGrid={baseGrid}
         setYkrId={setYkrId}
       />

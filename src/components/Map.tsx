@@ -5,7 +5,7 @@ import StaticMap from 'react-map-gl'
 import { BASEMAP } from '@deck.gl/carto/typed'
 
 // DeckGL react component
-const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
+const Map = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
 
@@ -30,10 +30,13 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
       setYkrId(f.object.properties.YKR_ID)
     }
   }
-  const handleClick = (f: any) => {
-    setHoverMode(!hoverMode)
-    if (f.object) {
-      setYkrId(f.object.properties.YKR_ID)
+  const handleClick = (event: any) => {
+    if (event.layer && event.object) {  // detect clicks on grid
+      setYkrId(event.object.properties.YKR_ID)
+      setHoverMode(!hoverMode)
+    } else {  // clear map on clicks outside area
+      setMatrixData(null)
+      setHoverMode(false)
     }
   }
 
@@ -64,7 +67,6 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
     getFillColor: [0, 0, 0, 0],
     // visible: false,
     onHover: f => handleHover(f),
-    onClick: f => handleClick(f)
   })
 
   const layers = [baseGridLayer, matrixLayer]
@@ -77,6 +79,7 @@ const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
         //   polygonOffsetFill: false,
         //   depthTest: false,
         // }}
+        onClick={event => handleClick(event)}
         initialViewState={INITIAL_VIEW_STATE}
         controller={{doubleClickZoom: false}}
         layers={layers}>

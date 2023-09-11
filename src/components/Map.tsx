@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import DeckGL from '@deck.gl/react/typed'
 import { GeoJsonLayer } from '@deck.gl/layers/typed'
 import Map, {Source, Layer, FillLayer} from 'react-map-gl/maplibre'
@@ -25,9 +25,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     bearing: 0
   }
 
-  const handleHover = (f: any) => {
-    if (f.object && hoverModeRef.current === true) {
-      setYkrId(f.object.properties.YKR_ID)
+  // const handleHover = useCallback((event: any) => {
+  //   console.log(event)
+  //   console.log(event.features)
+  // }, []);
+  const handleHover = (event: any) => {
+    console.log(event.features)
+    if (event.features[1] && hoverModeRef.current === true) {
+      setYkrId(event.features[1].properties.YKR_ID)
     }
   }
   const handleClick = (event: any) => {
@@ -72,25 +77,26 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
   const layers = [baseGridLayer, matrixLayer]
 
   const travelTimeLayer: FillLayer = {
-    id: 'data',
-    source: 'data',
+    id: 'travelTimeLayer',
+    source: 'travelTimeLayer',
     type: 'fill',
     paint: {
       'fill-color': [
         'interpolate',
-        ["linear"],
-        ["get", "t"],
+        ['linear'],
+        ['get', 't'],
         15,
-        ["to-color", "#FFFFFF"],
+        ['to-color', '#FFFFFF'],
         60,
-        ["to-color", "#000000"],
+        ['to-color', '#000000'],
       ],
+      "fill-outline-color": "#00000000",
       'fill-opacity': 0.25
     }
   };
   const gridLayer: FillLayer = {
-    id: 'gridData',
-    source: 'gridData',
+    id: 'gridLayer',
+    source: 'gridLayer',
     type: 'fill',
     paint: {
       'fill-color': '#000000',
@@ -103,12 +109,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
       <Map
         initialViewState={INITIAL_VIEW_STATE}
         style={{position: 'absolute', width: '100%', height: '100%'}}
-        mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+        mapStyle='https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+        onMouseMove={e => handleHover(e)}
+        interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
       >
-      <Source id="gridData" type="geojson" data={baseGrid}>
+      <Source id='gridLayer' type='geojson' data={baseGrid}>
         <Layer {...gridLayer} />
       </Source>
-      <Source id="data" type="geojson" data={matrixData}>
+      <Source id='travelTimeLayer' type='geojson' data={matrixData}>
         <Layer {...travelTimeLayer} />
       </Source>
       </Map>

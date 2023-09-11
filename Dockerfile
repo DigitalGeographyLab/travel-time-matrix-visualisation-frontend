@@ -1,4 +1,4 @@
-FROM node:lts-bookworm-slim AS build-stage
+FROM node:18.17-bookworm-slim AS build-stage
 WORKDIR /usr/src/app
 COPY . .
 RUN npm ci

@@ -71,7 +71,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
 
   const layers = [baseGridLayer, matrixLayer]
 
-  const dataLayer: FillLayer = {
+  const travelTimeLayer: FillLayer = {
     id: 'data',
     source: 'data',
     type: 'fill',
@@ -84,9 +84,17 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         ["to-color", "#FFFFFF"],
         60,
         ["to-color", "#000000"],
-
       ],
       'fill-opacity': 0.25
+    }
+  };
+  const gridLayer: FillLayer = {
+    id: 'gridData',
+    source: 'gridData',
+    type: 'fill',
+    paint: {
+      'fill-color': '#000000',
+      'fill-opacity': 0
     }
   };
 
@@ -97,8 +105,11 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         style={{position: 'absolute', width: '100%', height: '100%'}}
         mapStyle="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
       >
+      <Source id="gridData" type="geojson" data={baseGrid}>
+        <Layer {...gridLayer} />
+      </Source>
       <Source id="data" type="geojson" data={matrixData}>
-        <Layer {...dataLayer} />
+        <Layer {...travelTimeLayer} />
       </Source>
       </Map>
     </div>

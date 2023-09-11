@@ -33,7 +33,6 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     }
   }
   const handleClick = (event: any) => {
-    console.log(event.features)
     if (event.features.length > 0) {  // detect clicks on grid
       setYkrId(event.features[0].properties.YKR_ID)
       setHoverMode(!hoverMode)
@@ -53,9 +52,9 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         ['linear'],
         ['get', 't'],
         15,
-        ['to-color', '#FFFFFF'],
+        ['to-color', '#F5FBF3'],
         60,
-        ['to-color', '#000000'],
+        ['to-color', '#00441B'],
       ],
       "fill-outline-color": "#00000000",
       'fill-opacity': 0.25
@@ -80,6 +79,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         onMouseMove={e => handleHover(e)}
         onClick={e => handleClick(e)}
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
+        doubleClickZoom={false}
       >
       <Source id='travelTimeLayer' type='geojson' data={matrixData}>
         <Layer {...travelTimeLayer} />

@@ -30,14 +30,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
   //   console.log(event.features)
   // }, []);
   const handleHover = (event: any) => {
-    console.log(event.features)
-    if (event.features[1] && hoverModeRef.current === true) {
-      setYkrId(event.features[1].properties.YKR_ID)
+    if (event.features.length > 0 && hoverModeRef.current === true) {
+      setYkrId(event.features[0].properties.YKR_ID)
     }
   }
   const handleClick = (event: any) => {
-    if (event.layer && event.object) {  // detect clicks on grid
-      setYkrId(event.object.properties.YKR_ID)
+    console.log(event.features)
+    if (event.features.length > 0) {  // detect clicks on grid
+      setYkrId(event.features[0].properties.YKR_ID)
       setHoverMode(!hoverMode)
     } else {  // clear map on clicks outside area
       setMatrixData(null)
@@ -111,13 +111,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         style={{position: 'absolute', width: '100%', height: '100%'}}
         mapStyle='https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
         onMouseMove={e => handleHover(e)}
+        onClick={e => handleClick(e)}
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
       >
-      <Source id='gridLayer' type='geojson' data={baseGrid}>
-        <Layer {...gridLayer} />
-      </Source>
       <Source id='travelTimeLayer' type='geojson' data={matrixData}>
         <Layer {...travelTimeLayer} />
+      </Source>
+      <Source id='gridLayer' type='geojson' data={baseGrid}>
+        <Layer {...gridLayer} />
       </Source>
       </Map>
     </div>

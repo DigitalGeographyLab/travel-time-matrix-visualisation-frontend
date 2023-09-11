@@ -1,5 +1,12 @@
 import { useState, useRef } from 'react'
-import Map, {Source, Layer, FillLayer} from 'react-map-gl/maplibre'
+import Map, {
+  Source,
+  Layer,
+  FillLayer,
+  FullscreenControl,
+  NavigationControl,
+  ScaleControl,
+} from 'react-map-gl/maplibre'
 
 // DeckGL react component
 const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
@@ -80,12 +87,15 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
         doubleClickZoom={false}
       >
-      <Source id='travelTimeLayer' type='geojson' data={matrixData}>
-        <Layer {...travelTimeLayer} />
-      </Source>
-      <Source id='gridLayer' type='geojson' data={baseGrid}>
-        <Layer {...gridLayer} />
-      </Source>
+        <FullscreenControl position="top-left" />
+        <NavigationControl position="top-left" />
+        <ScaleControl />
+        <Source id='travelTimeLayer' type='geojson' data={matrixData}>
+          <Layer {...travelTimeLayer} />
+        </Source>
+        <Source id='gridLayer' type='geojson' data={baseGrid}>
+          <Layer {...gridLayer} />
+        </Source>
       </Map>
     </div>
   )

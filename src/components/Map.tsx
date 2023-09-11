@@ -80,15 +80,15 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     <div style={{ }}>
       <Map
         initialViewState={INITIAL_VIEW_STATE}
-        style={{position: 'absolute', width: '100%', height: '100%'}}
+        style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
         mapStyle='https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
         onMouseMove={e => handleHover(e)}
         onClick={e => handleClick(e)}
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
         doubleClickZoom={false}
       >
-        <FullscreenControl position="top-left" />
-        <NavigationControl position="top-left" />
+        <FullscreenControl position='top-right' />
+        <NavigationControl position='top-right' />
         <ScaleControl />
         <Source id='travelTimeLayer' type='geojson' data={matrixData}>
           <Layer {...travelTimeLayer} />

@@ -22,7 +22,7 @@ const TopBar = ({
   }
 
   return (
-    <div>
+    <div style={{ }}>
       <Button onClick={makeTravelModeHandler('walk', 't')} text={'walk'}/>
       <Button onClick={makeTravelModeHandler('bike', 's_t')} text={'bike, slow'}/>
       <Button onClick={makeTravelModeHandler('bike', 'f_t')} text={'bike, fast'}/>

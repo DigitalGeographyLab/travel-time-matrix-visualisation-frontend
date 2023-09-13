@@ -54,16 +54,21 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     type: 'fill',
     paint: {
       'fill-color': [
-        'interpolate',
-        ['linear'],
+        'match',
         ['get', 't'],
         15,
-        ['to-color', '#F5FBF3'],
+        '#FFE841',
+        30,
+        '#A69D76',
+        45,
+        '#555C6C',
         60,
-        ['to-color', '#00441B'],
+        '#001A4B',
+        'black'
       ],
-      "fill-outline-color": "#00000000",
-      'fill-opacity': 0.25
+      'fill-outline-color': '#00000000',
+      'fill-opacity': 0.35,
+      'fill-antialias': false
     }
   };
   const gridLayer: FillLayer = {

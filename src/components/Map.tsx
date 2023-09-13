@@ -1,65 +1,109 @@
-import DeckGL from '@deck.gl/react/typed'
-import { GeoJsonLayer } from '@deck.gl/layers/typed'
-import StaticMap from 'react-map-gl'
-import { BASEMAP } from '@deck.gl/carto/typed'
+import { useState, useRef } from 'react'
+import Map, {
+  Source,
+  Layer,
+  FillLayer,
+  FullscreenControl,
+  NavigationControl,
+  ScaleControl,
+} from 'react-map-gl/maplibre'
 
-// DeckGL react component
-const Map = ({ matrixData, baseGrid, setYkrId }: any) => {
+const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
+
+  const [hoverMode, _setHoverMode] = useState(true)
+
+  // this updates properly in handlers
+  const hoverModeRef = useRef(hoverMode)
+  const setHoverMode = (mode: boolean) => {
+    hoverModeRef.current = mode
+    _setHoverMode(mode)
+  };
 
   // Viewport settings
   const INITIAL_VIEW_STATE = {
-    longitude: 24.93,
-    latitude: 60.29,
+    longitude: 24.88,
+    latitude: 60.25,
     zoom: 10,
     pitch: 0,
     bearing: 0
   }
 
-  const handleHover = (f: any) => {
-    if (f.object) {
-      setYkrId(f.object.properties.YKR_ID)
+  // const handleHover = useCallback((event: any) => {
+  //   if (event.features.length > 0 && hoverModeRef.current === true) {
+  //     setYkrId(event.features[0].properties.YKR_ID)
+  //   }
+  // }, []);
+  const handleHover = (event: any) => {
+    if (event.features.length > 0 && hoverModeRef.current === true) {
+      setYkrId(event.features[0].properties.YKR_ID)
     }
   }
-  const COLORS = {
-    15: [253, 231, 37, 255],
-    30: [53, 183, 121, 255],
-    45: [38, 130, 142, 255],
-    60: [62, 74, 137, 255],
-    75: [68, 1, 84, 255],
-  } as any
-
-  const getFillColor = (feature: any) => {
-    return COLORS[feature.properties.t]
+  const handleClick = (event: any) => {
+    if (event.features.length > 0) {  // detect clicks on grid
+      setYkrId(event.features[0].properties.YKR_ID)
+      setHoverMode(!hoverMode)
+    } else {  // clear map on clicks outside area
+      setMatrixData(null)
+      setHoverMode(false)
+    }
   }
-  const matrixLayer = new GeoJsonLayer({
-    id: 'geojson-layer',
-    data: matrixData,
-    pickable: false,
-    stroked: false,
-    getFillColor: f => getFillColor(f)
-  })
 
-  const baseGridLayer = new GeoJsonLayer({
-    id: 'base-grid',
-    data: baseGrid,
-    pickable: true,
-    getFillColor: [0, 0, 0, 30],
-    // visible: false,
-    onHover: f => handleHover(f)
-  })
-
-  const layers = [baseGridLayer, matrixLayer]
+  const travelTimeLayer: FillLayer = {
+    id: 'travelTimeLayer',
+    source: 'travelTimeLayer',
+    type: 'fill',
+    paint: {
+      'fill-color': [
+        'match',
+        ['get', 't'],
+        15,
+        '#FFE841',
+        30,
+        '#A69D76',
+        45,
+        '#555C6C',
+        60,
+        '#001A4B',
+        'black'
+      ],
+      'fill-outline-color': '#00000000',
+      'fill-opacity': 0.35,
+      'fill-antialias': false
+    }
+  };
+  const gridLayer: FillLayer = {
+    id: 'gridLayer',
+    source: 'gridLayer',
+    type: 'fill',
+    paint: {
+      'fill-color': '#000000',
+      'fill-opacity': 0
+    }
+  };
 
   return (
     <div style={{ }}>
-      <DeckGL
+      <Map
         initialViewState={INITIAL_VIEW_STATE}
-        controller={{doubleClickZoom: false}}
-        layers={layers}>
-          <StaticMap mapStyle={BASEMAP.POSITRON} />
-      </DeckGL>
+        style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+        mapStyle='https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+        onMouseMove={e => handleHover(e)}
+        onClick={e => handleClick(e)}
+        interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
+        doubleClickZoom={false}
+      >
+        <FullscreenControl position='top-right' />
+        <NavigationControl position='top-right' />
+        <ScaleControl />
+        <Source id='travelTimeLayer' type='geojson' data={matrixData}>
+          <Layer {...travelTimeLayer} />
+        </Source>
+        <Source id='gridLayer' type='geojson' data={baseGrid}>
+          <Layer {...gridLayer} />
+        </Source>
+      </Map>
     </div>
   )
 }
 
-export default Map
+export default MapComponent

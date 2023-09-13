@@ -1,0 +1,12 @@
+version: 3
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 5173:5173
+    container_name: ttm-frontend

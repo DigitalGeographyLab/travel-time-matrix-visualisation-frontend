@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ttm-service
+  labels:
+    app: ttm
+spec:
+  ports:
+  - port: 8080
+  selector:
+    app: ttm-server
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: ttm-route
+  labels:
+    app: ttm
+spec:
+  host: traveltimematrix.rahtiapp.fi
+  to:
+    kind: Service
+    name: ttm-service
+    # weight: 100
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ttm-deployment
+  labels:
+    app: ttm
+spec:
+  selector:
+    matchLabels:
+      app: ttm-server
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ttm-server
+    spec:
+      containers:
+      - name: ttm-server
+        image: ghcr.io/eemilhaa/travel-time-matrix-visualisation-frontend:maplibre-experiment
+        imagePullPolicy: Always  # Change this when stable
+        ports:
+        - containerPort: 8080  # See Dockerfile
+        requests:
+          memory: "200M"
+          cpu: "200m"
+        limits:
+          memory: "1G"
+          cpu: "1"

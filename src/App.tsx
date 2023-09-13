@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react'
 import formatName from './utils/formatName'
 import matrixService from './servives/matrices'
 
-import Map from './components/Map'
+import MapComponent from './components/Map'
 import TopBar from './components/TopBar'
 
 const App = () => {
 
-  const [year, setYear] = useState('2018')
+  const [year, setYear] = useState('2023')
   const [travelMode, setTravelMode] = useState('pt')
-  const [variation, setVariation] = useState('r_t')
-  const [ykrId, setYkrId] = useState('5977005')
+  const [variation, setVariation] = useState('r_walk_avg')
+  const [ykrId, setYkrId] = useState('5975371')
   const [matrixData, setMatrixData] = useState(null)
   const [baseGrid, setBaseGrid] = useState(null)
 
@@ -35,8 +35,9 @@ const App = () => {
         setVariation={setVariation}
         setYear={setYear}
       />
-      <Map
+      <MapComponent
         matrixData={matrixData}
+        setMatrixData={setMatrixData}
         baseGrid={baseGrid}
         setYkrId={setYkrId}
       />

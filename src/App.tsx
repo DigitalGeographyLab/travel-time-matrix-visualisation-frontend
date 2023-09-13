@@ -7,9 +7,9 @@ import TopBar from './components/TopBar'
 
 const App = () => {
 
-  const [year, setYear] = useState('2018')
+  const [year, setYear] = useState('2023')
   const [travelMode, setTravelMode] = useState('pt')
-  const [variation, setVariation] = useState('r_t')
+  const [variation, setVariation] = useState('r_walk_avg')
   const [ykrId, setYkrId] = useState('5975371')
   const [matrixData, setMatrixData] = useState(null)
   const [baseGrid, setBaseGrid] = useState(null)

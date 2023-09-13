@@ -8,7 +8,6 @@ import Map, {
   ScaleControl,
 } from 'react-map-gl/maplibre'
 
-// DeckGL react component
 const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
@@ -30,8 +29,9 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
   }
 
   // const handleHover = useCallback((event: any) => {
-  //   console.log(event)
-  //   console.log(event.features)
+  //   if (event.features.length > 0 && hoverModeRef.current === true) {
+  //     setYkrId(event.features[0].properties.YKR_ID)
+  //   }
   // }, []);
   const handleHover = (event: any) => {
     if (event.features.length > 0 && hoverModeRef.current === true) {

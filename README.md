@@ -1,33 +1,48 @@
 # TTM-frontend
 This is an interactive map UI for displaying travel time matrices.
 
+See the [backend](https://github.com/DigitalGeographyLab/travel-time-matrix-visualisation-backend)
+for serving the data.
+
 
 ## Technology
-Currently built using Vite, React and Typescript.
-
-Mapping is done with:
-- Deck.gl for rendering layers
-- react-map-gl + maplibre for basemap
-
-Axios for http requests.
+- Built on Vite, React and Typescript
+- Mapping is done with react-map-gl and maplibre
+- Axios for http requests
 
 
 ## Development
+The frontend will be available at http://localhost:5173.
+
+### Containerized
+To start the frontend run:
+```console
+docker compose up
+```
+This assumes you are serving travel time matrix geojson data on http://localhost:8080/.
+See `dev.Dockerfile` for changing the url to fetch data from.
+
+### Non-containerized
 Install everything with:
 ```console
 npm install
 ```
-And start in development mode:
+Set the env var `VITE_BACKEND_URL` to reflect where you are serving the data from.
+
+Start in development mode:
 ```console
 npm run dev -- --host
 ```
 
-The app fetches travel time matrices (preprocessed to catchment polygons in geojson format) from http://localhost:8080/.
-Serve them with the [backend](https://github.com/DigitalGeographyLab/travel-time-matrix-visualisation-backend).
+## Deploying to rahti
+The command line tool `oc` is required for interacting with rahti.
 
+After authenticating you can create a deployment with:
+```console
+oc create -f manifest.yml
+```
 
-## Current state
-- Fetch catchments by http requests
-- Select catchments, trigger fetching and update the map view based on mouse location (hover)
-- visualize catchments
-- Choose from all travel modes
+And delete it with:
+```console
+oc delete all --selector app=ttm
+```

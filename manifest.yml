@@ -18,6 +18,8 @@ metadata:
     app: ttm
 spec:
   host: traveltimematrix.rahtiapp.fi
+  tls:
+    termination: edge
   to:
     kind: Service
     name: ttm-service

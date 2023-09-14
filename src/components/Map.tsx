@@ -6,11 +6,17 @@ import Map, {
   FullscreenControl,
   NavigationControl,
   ScaleControl,
+  Marker,
 } from 'react-map-gl/maplibre'
 
 const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
+  const [markerVisibility, setMarkerVisibility] = useState(false)
+  const [marker, setMarker] = useState({
+    latitude: 60.25,
+    longitude: 24.88,
+  })
 
   // this updates properly in handlers
   const hoverModeRef = useRef(hoverMode)
@@ -42,6 +48,15 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     if (event.features.length > 0) {  // detect clicks on grid
       setYkrId(event.features[0].properties.YKR_ID)
       setHoverMode(!hoverMode)
+      if (hoverModeRef.current === false) {
+        setMarkerVisibility(true)
+        setMarker({
+          longitude: event.lngLat.lng,
+          latitude: event.lngLat.lat
+        })
+      } else {
+        setMarkerVisibility(false)
+      }
     } else {  // clear map on clicks outside area
       setMatrixData(null)
       setHoverMode(false)
@@ -92,6 +107,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
         doubleClickZoom={false}
       >
+        {markerVisibility && <Marker
+          latitude={marker.latitude}
+          longitude={marker.longitude}
+          anchor="center"
+          color='#555C6C'
+          style={{zIndex: 1000}}
+        >
+        </Marker>}
         <FullscreenControl position='top-right' />
         <NavigationControl position='top-right' />
         <ScaleControl />

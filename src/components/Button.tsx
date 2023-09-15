@@ -1,6 +1,14 @@
-const Button = ({ onClick, text }: any) => {
+const Button = ({ onClick, text, clicked, setClicked }: any) => {
+
+  const color = (clicked === text) ? "green" : "black"
+
+  const wrapOnClick = () => {
+    setClicked(text)
+    onClick()
+  }
+
   return (
-    <button onClick={onClick} style={{ position: 'relative', zIndex: 10 }}>
+    <button onClick={wrapOnClick} style={{ color: color, position: 'relative', zIndex: 10 }}>
       {text}
     </button>
   )

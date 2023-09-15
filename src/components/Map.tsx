@@ -54,9 +54,13 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
       setHoverInfo(null)
       setYkrId(features[0].properties.YKR_ID)
     }
-    if (features.length > 1 && hoverModeRef.current === false) {
-      const hoveredFeature = features[1]
-      setHoverInfo({time: hoveredFeature.properties.t, x: x, y: y})
+    if (hoverModeRef.current === false) {
+      if (features.length > 1) {
+        const hoveredFeature = features[1]
+        setHoverInfo({time: hoveredFeature.properties.t, x: x, y: y})
+      } else {
+        setHoverInfo(null)
+      }
     }
   }
   const handleClick = (event: any) => {

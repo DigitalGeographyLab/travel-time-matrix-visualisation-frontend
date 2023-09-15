@@ -8,10 +8,16 @@ import Map, {
   ScaleControl,
   Marker,
 } from 'react-map-gl/maplibre'
+import Tooltip from './Tooltip'
 
 const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
+  const [hoverInfo, setHoverInfo] = useState<{
+    time: number,
+    x: number,
+    y: number,
+  } | null >(null);
   const [markerVisibility, setMarkerVisibility] = useState(false)
   const [marker, setMarker] = useState({
     latitude: 60.25,
@@ -40,8 +46,17 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
   //   }
   // }, []);
   const handleHover = (event: any) => {
-    if (event.features.length > 0 && hoverModeRef.current === true) {
-      setYkrId(event.features[0].properties.YKR_ID)
+    const {
+      features,
+      point: {x, y}
+    } = event
+    if (features.length > 0 && hoverModeRef.current === true) {
+      setHoverInfo(null)
+      setYkrId(features[0].properties.YKR_ID)
+    }
+    if (features.length > 1 && hoverModeRef.current === false) {
+      const hoveredFeature = features[1]
+      setHoverInfo({time: hoveredFeature.properties.t, x: x, y: y})
     }
   }
   const handleClick = (event: any) => {
@@ -112,7 +127,6 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
           longitude={marker.longitude}
           anchor="center"
           color='#555C6C'
-          style={{zIndex: 1000}}
         >
         </Marker>}
         <FullscreenControl position='top-right' />
@@ -124,6 +138,11 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         <Source id='gridLayer' type='geojson' data={baseGrid}>
           <Layer {...gridLayer} />
         </Source>
+        {(!hoverModeRef.current && hoverInfo) && <Tooltip
+          time={hoverInfo.time}
+          x={hoverInfo.x}
+          y={hoverInfo.y}
+        />}
       </Map>
     </div>
   )

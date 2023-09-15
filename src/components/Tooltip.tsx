@@ -14,6 +14,7 @@ const Tooltip = ({ time, x, y }: {time: number, x: number, y: number}) => {
       color: '#fff',
       fontSize: '12px',
       zIndex: 9,
+      pointerEvents: "none",
     }}>
       <div>Travel time: {label} minutes</div>
     </div>

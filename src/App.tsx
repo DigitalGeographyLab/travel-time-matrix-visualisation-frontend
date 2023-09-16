@@ -3,7 +3,7 @@ import formatName from './utils/formatName'
 import matrixService from './servives/matrices'
 
 import MapComponent from './components/Map'
-import MenuBar from './components/MenuBar'
+import ControlPanel from './components/ControlPanel'
 
 const App = () => {
 
@@ -27,29 +27,11 @@ const App = () => {
     )
   }, [])
 
-  const travelModeButtons = [
-    ['walk_avg', 'walk'],
-    ['bike_slo', 'bike, slow'],
-    ['bike_fst', 'bike, fast'],
-    ['pt_r_walk_avg', 'public transport, rush'],
-    ['pt_m_walk_avg', 'public transport, midday'],
-    ['car_r', 'car, rush'],
-  ]
-  const yearButtons = [
-    ['2023', '2023'],
-  ]
-
   return (
-    <>
-      <MenuBar
-        setState={setTravelMode}
-        buttons={travelModeButtons}
-        initiallyActive={'public transport, rush'}
-      />
-      <MenuBar
-        setState={setYear}
-        buttons={yearButtons}
-        initiallyActive={'2023'}
+    <div>
+      <ControlPanel
+        setTravelMode={setTravelMode}
+        setYear={setYear}
       />
       <MapComponent
         matrixData={matrixData}
@@ -57,7 +39,7 @@ const App = () => {
         baseGrid={baseGrid}
         setYkrId={setYkrId}
       />
-    </>
+    </div>
   )
 }
 

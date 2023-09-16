@@ -6,6 +6,7 @@ const MenuBar = ({
   buttons,
   initiallyActive
 }: any) => {
+
   const [clickedButton, setClickedButton] = useState<string>(initiallyActive)
 
   return (

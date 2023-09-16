@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL = import.meta.env.VITE_BACKEND_URL // TODO
+const BASE_URL = "https://ttm-isochrones.rahtiapp.fi/geojson" // TODO
 
 const getMatrix = async (name: string) => {
   const response = await axios.get(`${BASE_URL}/${name}.geojson`)

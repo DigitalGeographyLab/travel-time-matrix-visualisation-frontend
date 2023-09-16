@@ -16,7 +16,7 @@ const ControlPanel = ({setTravelMode, setYear}: any) => {
   ]
 
   return (
-    <div>
+    <div className="control-panel">
       <MenuBar
         setState={setTravelMode}
         buttons={travelModeButtons}

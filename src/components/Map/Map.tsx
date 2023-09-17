@@ -3,8 +3,6 @@ import Map, {
   Source,
   Layer,
   FillLayer,
-  FullscreenControl,
-  NavigationControl,
   ScaleControl,
   Marker,
 } from 'react-map-gl/maplibre'
@@ -133,8 +131,6 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
           color='#555C6C'
         >
         </Marker>}
-        <FullscreenControl position='top-right' />
-        <NavigationControl position='top-right' />
         <ScaleControl />
         <Source id='travelTimeLayer' type='geojson' data={matrixData}>
           <Layer {...travelTimeLayer} />

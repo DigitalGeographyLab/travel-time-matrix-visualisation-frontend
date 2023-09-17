@@ -6,6 +6,8 @@ import MapComponent from './components/Map'
 import ControlPanel from './components/ControlPanel'
 import Legend from './components/Legend'
 
+import "./App.css"
+
 const App = () => {
 
   const [year, setYear] = useState('2023')

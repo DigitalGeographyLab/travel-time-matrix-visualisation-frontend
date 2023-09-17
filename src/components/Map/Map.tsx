@@ -8,6 +8,8 @@ import Map, {
 } from 'react-map-gl/maplibre'
 import Tooltip from './Tooltip'
 
+import "./style.css"
+
 const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)

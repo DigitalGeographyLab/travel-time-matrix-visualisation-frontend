@@ -6,15 +6,8 @@ const Tooltip = ({ time, x, y }: {time: number, x: number, y: number}) => {
   return (
     <div className="tooltip" style={{
       position: 'absolute',
-      left: x+3,
-      top: y+3,
-      margin: "8px",
-      padding: "4px",
-      background: 'rgba(0, 0, 0, 0.8)',
-      color: '#fff',
-      fontSize: '12px',
-      zIndex: 9,
-      pointerEvents: "none",
+      left: x+10,
+      top: y+10,
     }}>
       <div>Travel time: {label} minutes</div>
     </div>

@@ -1,8 +1,9 @@
-import MenuBar from "./MenuBar"
+import DropDown from "./DropDown"
+import "./style.css"
 
 const ControlPanel = ({setTravelMode, setYear}: any) => {
 
-  const travelModeButtons = [
+  const travelModeOptions = [
     ['walk_avg', 'walk'],
     ['bike_slo', 'bike, slow'],
     ['bike_fst', 'bike, fast'],
@@ -11,20 +12,20 @@ const ControlPanel = ({setTravelMode, setYear}: any) => {
     ['car_r', 'car, rush'],
     ['car_m', 'car, midday'],
   ]
-  const yearButtons = [
+  const yearOptions = [
     ['2023', '2023'],
   ]
 
   return (
     <div className="control-panel">
-      <MenuBar
+      <DropDown
         setState={setTravelMode}
-        buttons={travelModeButtons}
-        initiallyActive={'public transport, rush'}
+        options={travelModeOptions}
+        initialSelection={'pt_r_walk_avg'}
       />
-      <MenuBar
+      <DropDown
         setState={setYear}
-        buttons={yearButtons}
+        options={yearOptions}
         initiallyActive={'2023'}
       />
     </div>

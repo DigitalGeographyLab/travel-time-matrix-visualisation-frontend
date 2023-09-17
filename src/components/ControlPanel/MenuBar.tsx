@@ -10,7 +10,7 @@ const MenuBar = ({
   const [clickedButton, setClickedButton] = useState<string>(initiallyActive)
 
   return (
-    <div style={{ }}>
+    <div className='menu-bar' style={{ }}>
       {buttons.map((button: Array<string>) => <Button
         key={button[1]}
         onClick={() => setState(button[0])}

@@ -1,0 +1,16 @@
+.control-panel {
+  top: 0.5em;
+  left: 0.5em;
+  position: absolute;
+  z-index: 1;
+}
+button {
+  z-index: 1;
+}
+.menu-bar {
+  z-index: 1;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: 1px solid lightgray;
+  background-color: white;
+}

@@ -8,7 +8,7 @@ const Button = ({ onClick, text, clicked, setClicked }: any) => {
   }
 
   return (
-    <button onClick={wrapOnClick} style={{ color: color, position: 'relative', zIndex: 10 }}>
+    <button onClick={wrapOnClick} style={{ color: color }}>
       {text}
     </button>
   )

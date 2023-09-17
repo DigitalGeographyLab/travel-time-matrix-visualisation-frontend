@@ -22,11 +22,13 @@ const ControlPanel = ({setTravelMode, setYear}: any) => {
         setState={setTravelMode}
         options={travelModeOptions}
         initialSelection={'pt_r_walk_avg'}
+        label={"Travel mode: "}
       />
       <DropDown
         setState={setYear}
         options={yearOptions}
         initiallyActive={'2023'}
+        label={"Year: "}
       />
     </div>
   )

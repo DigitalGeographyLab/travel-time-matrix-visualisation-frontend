@@ -11,12 +11,13 @@ const MenuBar = ({
 
   return (
     <div style={{ }}>
-      {buttons.map((button: Array<string>)=> <Button
+      {buttons.map((button: Array<string>) => <Button
         key={button[1]}
         onClick={() => setState(button[0])}
         text={button[1]}
         clicked={clickedButton}
-        setClicked={setClickedButton}/>)}
+        setClicked={setClickedButton}
+      />)}
     </div>
   )
 }

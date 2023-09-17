@@ -4,6 +4,7 @@ import matrixService from './servives/matrices'
 
 import MapComponent from './components/Map'
 import ControlPanel from './components/ControlPanel'
+import Legend from './components/Legend'
 
 const App = () => {
 
@@ -39,6 +40,7 @@ const App = () => {
         baseGrid={baseGrid}
         setYkrId={setYkrId}
       />
+      <Legend/>
     </div>
   )
 }

@@ -12,6 +12,7 @@ const Legend = () => {
     <div className='legend'>
       <h4 className='legend-title'>Travel time (min)</h4>
       {items.map((item: Array<string>) => <Item
+        key={item[1]}
         color={item[0]}
         label={item[1]}
       />)}

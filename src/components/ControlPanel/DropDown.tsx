@@ -15,6 +15,7 @@ const DropDown = ({
         defaultValue={initialSelection}
       >
         {options.map((option: Array<string>) => <Option
+          key={option[1]}
           value={option[0]}
           text={option[1]}
         />)}

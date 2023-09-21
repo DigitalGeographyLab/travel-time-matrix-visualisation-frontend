@@ -11,4 +11,9 @@ const getBaseGrid = async () => {
   return response.data
 }
 
-export default { getMatrix, getBaseGrid }
+const getOutline = async () => {
+  const response = await axios.get(`${BASE_URL}/grid_outline.geojson`)
+  return response.data
+}
+
+export default { getMatrix, getBaseGrid, getOutline }

@@ -3,6 +3,7 @@ import Map, {
   Source,
   Layer,
   FillLayer,
+  LineLayer,
   ScaleControl,
   Marker,
 } from 'react-map-gl/maplibre'
@@ -10,7 +11,7 @@ import Tooltip from './Tooltip'
 
 import "./style.css"
 
-const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
+const MapComponent = ({ matrixData, setMatrixData, baseGrid, outline, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
   const [hoverInfo, setHoverInfo] = useState<{
@@ -101,7 +102,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         'black'
       ],
       'fill-outline-color': '#00000000',
-      'fill-opacity': 0.35,
+      'fill-opacity': 0.25,
       'fill-antialias': false
     }
   };
@@ -112,6 +113,16 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     paint: {
       'fill-color': '#000000',
       'fill-opacity': 0
+    }
+  };
+  const outlineLayer: LineLayer = {
+    id: 'outlineLayer',
+    source: 'outlineLayer',
+    type: 'line',
+    paint: {
+      'line-width': 2,
+      'line-color': '#001A4B',
+      'line-opacity': 0.25,
     }
   };
 
@@ -139,6 +150,9 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         </Source>
         <Source id='gridLayer' type='geojson' data={baseGrid}>
           <Layer {...gridLayer} />
+        </Source>
+        <Source id='outlineLayer' type='geojson' data={outline}>
+          <Layer {...outlineLayer} />
         </Source>
         {(!hoverModeRef.current && hoverInfo) && <Tooltip
           time={hoverInfo.time}

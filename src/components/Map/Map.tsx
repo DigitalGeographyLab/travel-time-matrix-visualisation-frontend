@@ -3,14 +3,27 @@ import Map, {
   Source,
   Layer,
   FillLayer,
-  FullscreenControl,
-  NavigationControl,
+  LineLayer,
   ScaleControl,
+  Marker,
 } from 'react-map-gl/maplibre'
+import Tooltip from './Tooltip'
 
-const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) => {
+import "./style.css"
+
+const MapComponent = ({ matrixData, setMatrixData, baseGrid, outline, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
+  const [hoverInfo, setHoverInfo] = useState<{
+    time: number,
+    x: number,
+    y: number,
+  } | null >(null);
+  const [markerVisibility, setMarkerVisibility] = useState(false)
+  const [marker, setMarker] = useState({
+    latitude: 60.25,
+    longitude: 24.88,
+  })
 
   // this updates properly in handlers
   const hoverModeRef = useRef(hoverMode)
@@ -34,14 +47,36 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
   //   }
   // }, []);
   const handleHover = (event: any) => {
-    if (event.features.length > 0 && hoverModeRef.current === true) {
-      setYkrId(event.features[0].properties.YKR_ID)
+    const {
+      features,
+      point: {x, y}
+    } = event
+    if (features.length > 0 && hoverModeRef.current === true) {
+      setHoverInfo(null)
+      setYkrId(features[0].properties.YKR_ID)
+    }
+    if (hoverModeRef.current === false) {
+      if (features.length > 1) {
+        const hoveredFeature = features[1]
+        setHoverInfo({time: hoveredFeature.properties.t, x: x, y: y})
+      } else {
+        setHoverInfo(null)
+      }
     }
   }
   const handleClick = (event: any) => {
     if (event.features.length > 0) {  // detect clicks on grid
       setYkrId(event.features[0].properties.YKR_ID)
       setHoverMode(!hoverMode)
+      if (hoverModeRef.current === false) {
+        setMarkerVisibility(true)
+        setMarker({
+          longitude: event.lngLat.lng,
+          latitude: event.lngLat.lat
+        })
+      } else {
+        setMarkerVisibility(false)
+      }
     } else {  // clear map on clicks outside area
       setMatrixData(null)
       setHoverMode(false)
@@ -67,7 +102,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         'black'
       ],
       'fill-outline-color': '#00000000',
-      'fill-opacity': 0.35,
+      'fill-opacity': 0.25,
       'fill-antialias': false
     }
   };
@@ -78,6 +113,16 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
     paint: {
       'fill-color': '#000000',
       'fill-opacity': 0
+    }
+  };
+  const outlineLayer: LineLayer = {
+    id: 'outlineLayer',
+    source: 'outlineLayer',
+    type: 'line',
+    paint: {
+      'line-width': 2,
+      'line-color': '#001A4B',
+      'line-opacity': 0.25,
     }
   };
 
@@ -92,8 +137,13 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         interactiveLayerIds={['gridLayer', 'travelTimeLayer']}
         doubleClickZoom={false}
       >
-        <FullscreenControl position='top-right' />
-        <NavigationControl position='top-right' />
+        {markerVisibility && <Marker
+          latitude={marker.latitude}
+          longitude={marker.longitude}
+          anchor="center"
+          color='#555C6C'
+        >
+        </Marker>}
         <ScaleControl />
         <Source id='travelTimeLayer' type='geojson' data={matrixData}>
           <Layer {...travelTimeLayer} />
@@ -101,6 +151,14 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, setYkrId }: any) =>
         <Source id='gridLayer' type='geojson' data={baseGrid}>
           <Layer {...gridLayer} />
         </Source>
+        <Source id='outlineLayer' type='geojson' data={outline}>
+          <Layer {...outlineLayer} />
+        </Source>
+        {(!hoverModeRef.current && hoverInfo) && <Tooltip
+          time={hoverInfo.time}
+          x={hoverInfo.x}
+          y={hoverInfo.y}
+        />}
       </Map>
     </div>
   )

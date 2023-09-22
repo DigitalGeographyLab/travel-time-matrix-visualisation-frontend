@@ -1,0 +1,26 @@
+.legend {
+  background-color: #fff;
+  border-radius: 0.5em;
+  border: 1px solid lightgray;
+  padding: 0.5em;
+  position: absolute;
+  bottom: 2em;
+  right: 0.5em;
+  z-index: 1;
+}
+
+.legend-item span {
+  display: flex;
+  height: 1.5em;
+  margin-right: 0.5em;
+  width: 1.5em;
+}
+
+.legend-item {
+  font-size: 14px;
+  display: flex;
+}
+
+.legend-title {
+  margin: 0 0 0.5em;
+}

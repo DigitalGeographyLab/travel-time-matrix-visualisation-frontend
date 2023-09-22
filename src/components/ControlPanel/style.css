@@ -1,0 +1,18 @@
+.control-panel {
+  top: 0.5em;
+  left: 0.5em;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  border-radius: 0.5em;
+  border: 1px solid lightgray;
+}
+.dropdown {
+  border-radius: 0.25em;
+  padding: 0.25em;
+  border: 1px solid lightgray;
+}
+.label {
+  margin: 0.5em;
+  font-weight: bold;
+}

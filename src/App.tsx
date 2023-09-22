@@ -3,45 +3,52 @@ import formatName from './utils/formatName'
 import matrixService from './servives/matrices'
 
 import MapComponent from './components/Map'
-import TopBar from './components/TopBar'
+import ControlPanel from './components/ControlPanel'
+import Legend from './components/Legend'
+
+import "./App.css"
 
 const App = () => {
 
   const [year, setYear] = useState('2023')
-  const [travelMode, setTravelMode] = useState('pt')
-  const [variation, setVariation] = useState('r_walk_avg')
+  const [travelMode, setTravelMode] = useState('pt_r_walk_avg')
   const [ykrId, setYkrId] = useState('5975371')
   const [matrixData, setMatrixData] = useState(null)
   const [baseGrid, setBaseGrid] = useState(null)
+  const [outline, setOutline] = useState(null)
 
-  let name = formatName(year, travelMode, variation, ykrId)
+  let name = formatName(year, travelMode, ykrId)
   
   useEffect(() => {
     matrixService.getMatrix(name).then(matrixData =>
       setMatrixData(matrixData)
     )
-  }, [year, travelMode, variation, ykrId])
+  }, [year, travelMode, ykrId])
 
   useEffect(() => {
     matrixService.getBaseGrid().then(baseGrid =>
       setBaseGrid(baseGrid)
     )
+    matrixService.getOutline().then(outline =>
+      setOutline(outline)
+    )
   }, [])
 
   return (
-    <>
-      <TopBar
+    <div>
+      <ControlPanel
         setTravelMode={setTravelMode}
-        setVariation={setVariation}
         setYear={setYear}
       />
       <MapComponent
         matrixData={matrixData}
         setMatrixData={setMatrixData}
         baseGrid={baseGrid}
+        outline={outline}
         setYkrId={setYkrId}
       />
-    </>
+      <Legend/>
+    </div>
   )
 }
 

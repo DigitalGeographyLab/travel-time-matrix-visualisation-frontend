@@ -20,6 +20,7 @@ spec:
   host: traveltimematrix.rahtiapp.fi
   tls:
     termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   to:
     kind: Service
     name: ttm-service

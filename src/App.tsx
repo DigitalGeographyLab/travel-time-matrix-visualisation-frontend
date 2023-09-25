@@ -15,7 +15,7 @@ const App = () => {
   const [ykrId, setYkrId] = useState('5975371')
   const [matrixData, setMatrixData] = useState(null)
   const [baseGrid, setBaseGrid] = useState(null)
-  const [outline, setOutline] = useState(null)
+  const [borders, setBorders] = useState(null)
 
   let name = formatName(year, travelMode, ykrId)
   
@@ -29,8 +29,8 @@ const App = () => {
     matrixService.getBaseGrid().then(baseGrid =>
       setBaseGrid(baseGrid)
     )
-    matrixService.getOutline().then(outline =>
-      setOutline(outline)
+    matrixService.getBorders().then(borders =>
+      setBorders(borders)
     )
   }, [])
 
@@ -44,7 +44,7 @@ const App = () => {
         matrixData={matrixData}
         setMatrixData={setMatrixData}
         baseGrid={baseGrid}
-        outline={outline}
+        borders={borders}
         setYkrId={setYkrId}
       />
       <Legend/>

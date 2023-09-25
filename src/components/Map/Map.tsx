@@ -11,7 +11,7 @@ import Tooltip from './Tooltip'
 
 import "./style.css"
 
-const MapComponent = ({ matrixData, setMatrixData, baseGrid, outline, setYkrId }: any) => {
+const MapComponent = ({ matrixData, setMatrixData, baseGrid, borders, setYkrId }: any) => {
 
   const [hoverMode, _setHoverMode] = useState(true)
   const [hoverInfo, setHoverInfo] = useState<{
@@ -121,8 +121,8 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, outline, setYkrId }
     type: 'line',
     paint: {
       'line-width': 2,
-      'line-color': '#001A4B',
-      'line-opacity': 0.25,
+      'line-color': '#697B89',
+      'line-opacity': 0.7,
     }
   };
 
@@ -151,7 +151,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, outline, setYkrId }
         <Source id='gridLayer' type='geojson' data={baseGrid}>
           <Layer {...gridLayer} />
         </Source>
-        <Source id='outlineLayer' type='geojson' data={outline}>
+        <Source id='outlineLayer' type='geojson' data={borders}>
           <Layer {...outlineLayer} />
         </Source>
         {(!hoverModeRef.current && hoverInfo) && <Tooltip

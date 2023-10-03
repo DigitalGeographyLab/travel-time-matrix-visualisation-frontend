@@ -4,6 +4,7 @@ import Map, {
   Layer,
   FillLayer,
   LineLayer,
+  NavigationControl,
   ScaleControl,
   Marker,
 } from 'react-map-gl/maplibre'
@@ -145,6 +146,7 @@ const MapComponent = ({ matrixData, setMatrixData, baseGrid, borders, setYkrId }
         >
         </Marker>}
         <ScaleControl />
+        <NavigationControl/>
         <Source id='travelTimeLayer' type='geojson' data={matrixData}>
           <Layer {...travelTimeLayer} />
         </Source>

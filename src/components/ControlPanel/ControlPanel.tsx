@@ -13,7 +13,7 @@ const ControlPanel = ({ setTravelMode, setYear }: any) => {
     ["pt_r_walk_avg", "public transport, rush hour"],
     ["pt_m_walk_avg", "public transport, midday"],
     ["pt_n_walk_avg", "public transport, night"],
-    ["car_r", "car, rush"],
+    ["car_r", "car, rush hour"],
     ["car_m", "car, midday"],
     ["car_n", "car, night"],
   ]

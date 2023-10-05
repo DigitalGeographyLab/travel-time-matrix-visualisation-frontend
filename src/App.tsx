@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import formatName from './utils/formatName'
-import matrixService from './servives/matrices'
+import matrixService from './services/matrices'
 
 import MapComponent from './components/Map'
 import ControlPanel from './components/ControlPanel'

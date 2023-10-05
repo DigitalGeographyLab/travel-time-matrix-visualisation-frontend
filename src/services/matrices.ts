@@ -1,5 +1,5 @@
-import axios from 'axios'
-const BASE_URL = "http://localhost:8080" // TODO
+import axios from "axios"
+const BASE_URL = import.meta.env.VITE_BACKEND_URL // TODO
 
 const getMatrix = async (name: string) => {
   const response = await axios.get(`${BASE_URL}/${name}.geojson`)
@@ -21,4 +21,4 @@ const getBorders = async () => {
   return response.data
 }
 
-export default { getMatrix, getBaseGrid, getBorders, getOutline}
+export default { getMatrix, getBaseGrid, getBorders, getOutline }

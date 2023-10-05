@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 const BASE_URL = import.meta.env.VITE_BACKEND_URL // TODO
 
 const getMatrix = async (name: string) => {
@@ -21,4 +21,4 @@ const getBorders = async () => {
   return response.data
 }
 
-export default { getMatrix, getBaseGrid, getBorders, getOutline}
+export default { getMatrix, getBaseGrid, getBorders, getOutline }

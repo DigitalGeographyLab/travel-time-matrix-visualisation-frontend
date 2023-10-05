@@ -1,6 +1,5 @@
 const Button = ({ onClick, text, clicked, setClicked }: any) => {
-
-  const color = (clicked === text) ? "green" : "black"
+  const color = clicked === text ? "green" : "black"
 
   const wrapOnClick = () => {
     setClicked(text)

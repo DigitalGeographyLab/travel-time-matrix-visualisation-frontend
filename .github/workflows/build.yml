@@ -3,9 +3,11 @@ name: Build and push image
 on:
   push:
     paths:
-      - 'src/**'
-      - 'index.html'
-      - 'Dockerfile'
+      - "src/**"
+      - "index.html"
+      - "Dockerfile"
+      - "package.json"
+      - "package-lock.json"
   workflow_dispatch:
 
 env:

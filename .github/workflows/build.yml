@@ -6,6 +6,8 @@ on:
       - 'src/**'
       - 'index.html'
       - 'Dockerfile'
+      - 'package.json'
+      - 'package-lock.json'
   workflow_dispatch:
 
 env:

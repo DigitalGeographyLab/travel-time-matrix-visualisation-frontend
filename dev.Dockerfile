@@ -1,4 +1,4 @@
-FROM node:18.17-bookworm-slim
+FROM node:20.11-bookworm-slim
 WORKDIR /usr/src/app
 COPY . .
 RUN npm install --include=dev

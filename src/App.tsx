@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import formatName from "./utils/formatName"
 import matrixService from "./services/matrices"
 
 import MapComponent from "./components/Map"
@@ -9,18 +8,26 @@ import Legend from "./components/Legend"
 import "./App.css"
 
 const App = () => {
-  const [year, setYear] = useState("2023")
+  const [year, setYear] = useState("2023") // Year selection is disabled in controlPanel currently
   const [travelMode, setTravelMode] = useState("pt_r_walk_avg")
-  const [ykrId, setYkrId] = useState("5975371")
+  const [ykrId, setYkrId] = useState("5975371") // Each grid cell has an unique ykrid
   const [matrixData, setMatrixData] = useState(null)
   const [baseGrid, setBaseGrid] = useState(null)
   const [borders, setBorders] = useState(null)
 
-  let name = formatName(year, travelMode, ykrId)
+  const formatMatrixName = (
+    year: string,
+    travelMode: string,
+    ykrId: string,
+  ) => {
+    return `${year}_${travelMode}_${ykrId}`
+  }
+
+  let matrixName = formatMatrixName(year, travelMode, ykrId)
 
   useEffect(() => {
     matrixService
-      .getMatrix(name)
+      .getMatrix(matrixName)
       .then((matrixData) => setMatrixData(matrixData))
   }, [year, travelMode, ykrId])
 

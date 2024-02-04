@@ -16,6 +16,7 @@ for serving the data.
 The frontend will be available at http://localhost:5173.
 
 ### Containerized
+The development container is `dev.Dockerfile`.
 
 To start the frontend run:
 
@@ -23,7 +24,11 @@ To start the frontend run:
 docker compose up
 ```
 
-This assumes you are serving travel time matrix geojson data on http://localhost:8080/.
+This starts the development container
+with the necessary ports and volumes setup to access the frontend with your browser
+and provide hot reload on any changes to the code.
+The default assumption is
+that you are serving travel time matrix geojson data on http://localhost:8080/.
 See `dev.Dockerfile` for changing the url to fetch data from.
 
 ### Non-containerized
@@ -42,7 +47,20 @@ Start in development mode:
 npm run dev -- --host
 ```
 
+## Building and deploying for production
+A separate container image is used
+for building and serving the production build of the app (`Dockerfile`).
+
+The production image is built and published automatically with github actions.
+It is hosted on github container registry and used by the deployment.
+
 ## Deploying to rahti
+The kubernetes configuration is in `manifest.yml`.
+It defines:
+- A Deployment that creates and runs a ReplicaSet of server pods
+(each serving the production build of the application)
+- A Service for exposing the deployment network
+- A Route for routing traffic from the internet to the Service
 
 The command line tool `oc` is required for interacting with rahti.
 

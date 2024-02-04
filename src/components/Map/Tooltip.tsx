@@ -1,6 +1,9 @@
 const Tooltip = ({ time, x, y }: { time: number; x: number; y: number }) => {
   const makeLabel = (time: number) => {
-    return `${time - 15}-${time}`
+    if (time === 15) {
+      return "0-15"
+    }
+    return `${time - 14}-${time}`
   }
   const label = makeLabel(time)
   return (

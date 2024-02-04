@@ -1,5 +1,8 @@
 version: 3
 
+volumes:
+  node_modules:
+
 services:
   app:
     build:
@@ -7,6 +10,7 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
     ports:
       - 5173:5173
     container_name: ttm-frontend

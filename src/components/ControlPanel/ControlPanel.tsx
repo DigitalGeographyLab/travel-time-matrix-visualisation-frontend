@@ -4,6 +4,7 @@ import "./style.css"
 const ControlPanel = ({ setTravelMode, setYear }: any) => {
   const showYearSelect = false
 
+  // Array for travel mode file names and respective labels to show in ui
   const travelModeOptions = [
     ["walk_avg", "walk, average"],
     ["walk_slo", "walk, slow"],
@@ -13,7 +14,7 @@ const ControlPanel = ({ setTravelMode, setYear }: any) => {
     ["pt_r_walk_avg", "public transport, rush hour"],
     ["pt_m_walk_avg", "public transport, midday"],
     ["pt_n_walk_avg", "public transport, night"],
-    ["car_r", "car, rush"],
+    ["car_r", "car, rush hour"],
     ["car_m", "car, midday"],
     ["car_n", "car, night"],
   ]
@@ -31,7 +32,7 @@ const ControlPanel = ({ setTravelMode, setYear }: any) => {
         <DropDown
           setState={setYear}
           options={yearOptions}
-          initiallyActive={"2023"}
+          initialSelection={"2023"}
           label={"Year: "}
         />
       )}
